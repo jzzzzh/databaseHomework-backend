@@ -50,4 +50,7 @@
     <update id="updateScoreByid">
         update sc set score = #{score}, examscore = #{examscore}, dailyscore = #{dailyscore},checkscore = #{checkscore}, is_updated = #{is_updated}where studentuuid = #{studentuuid} and courseuuid = #{courseuuid}
     </update>
+    <update id="changeInfo">
+        update teacher set name = #{name}, sex = #{sex}, major = #{major}, age = #{age} where uuid = #{uuid}
+    </update>
 </mapper>

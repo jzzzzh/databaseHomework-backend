@@ -31,4 +31,5 @@ public interface TeacherRepository {
     List<Course> selectCourseByCourseID(int uuid);
     int insertNoticeToStudent(int noticeuuid,int studentuuid,int teacheruuid);
     int updateScoreByid(int score, int examscore, int dailyscore, int checkscore, int studentuuid, int courseuuid, int is_updated);
+    int changeInfo(String name,  int uuid, String sex, String major, int age);
 }

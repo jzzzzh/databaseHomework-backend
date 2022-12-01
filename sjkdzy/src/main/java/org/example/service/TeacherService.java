@@ -102,5 +102,10 @@ public class TeacherService {
         teacherRepository.updateScoreByid(score, examscore, dailyscore, checkscore, studentuuid, courseuuid, is_updated);
         return Boolean.TRUE;
     }
+    public Boolean changeInfo(String name,  int uuid, String sex, String major, int age)
+    {
+        teacherRepository.changeInfo(name,uuid,sex,major,age);
+        return Boolean.TRUE;
+    }
 
 }

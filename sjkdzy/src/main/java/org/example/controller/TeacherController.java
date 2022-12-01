@@ -261,5 +261,23 @@ public class TeacherController {
             return Result.error();
         }
     }
+    @RequestMapping("/changeTeacherInfo")
+    public Result changeTeacherInfo(@RequestParam(value = "name") String name, @RequestParam(value = "sex")String sex,
+                                    @RequestParam(value = "age")int age, @RequestParam(value = "major")String major,
+                                    @RequestParam(value = "uuid")int uuid)
+    {
+        if(teacherService.changeInfo(name,uuid,sex,major,age))
+        {
+            Map<String, Object> data = new HashMap<>();
+            data.put("result", "update successful");
+            Result r = Result.ok();
+            r.setData(data);
+            return r;
+        }
+        else
+        {
+            return Result.error();
+        }
+    }
 }
 
