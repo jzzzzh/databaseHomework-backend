@@ -279,5 +279,22 @@ public class TeacherController {
             return Result.error();
         }
     }
+    @RequestMapping("/selectNoticeByTeaID")
+    public Result selectNoticeByTeaID(@RequestParam(value = "teacheruuid") int teacheruuid)
+    {
+        val notices = teacherService.selectNoticeByTeaID(teacheruuid);
+        if(notices != null)
+        {
+            Map<String, Object> data = new HashMap<>();
+            data.put("notices", notices);
+            Result r = Result.ok();
+            r.setData(data);
+            return r;
+        }
+        else
+        {
+            return Result.error();
+        }
+    }
 }
 

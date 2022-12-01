@@ -53,4 +53,7 @@
     <update id="changeInfo">
         update teacher set name = #{name}, sex = #{sex}, major = #{major}, age = #{age} where uuid = #{uuid}
     </update>
+    <select id="selectNoticeByTeaID" resultType="org.example.entity.Notice">
+        select * from notice where teacheruuid = #{teacheruuid}
+    </select>
 </mapper>

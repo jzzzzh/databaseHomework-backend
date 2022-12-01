@@ -1,10 +1,7 @@
 package org.example.repository;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.example.entity.Course;
-import org.example.entity.Score;
-import org.example.entity.Tc;
-import org.example.entity.Teacher;
+import org.example.entity.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -32,4 +29,5 @@ public interface TeacherRepository {
     int insertNoticeToStudent(int noticeuuid,int studentuuid,int teacheruuid);
     int updateScoreByid(int score, int examscore, int dailyscore, int checkscore, int studentuuid, int courseuuid, int is_updated);
     int changeInfo(String name,  int uuid, String sex, String major, int age);
+    List<Notice> selectNoticeByTeaID(int teacheruuid);
 }

@@ -2,10 +2,7 @@ package org.example.service;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.val;
-import org.example.entity.Course;
-import org.example.entity.Score;
-import org.example.entity.Student;
-import org.example.entity.Teacher;
+import org.example.entity.*;
 import org.example.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -108,5 +105,9 @@ public class StudentService {
     {
         studentRepository.changeStudentInfo(name, sex, grade, class_num, major, uuid);
         return true;
+    }
+    public List<Notice> selectNoticeByStuID(int studentuuid)
+    {
+        return studentRepository.selectNoticeByStuID(studentuuid);
     }
 }

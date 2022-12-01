@@ -48,4 +48,13 @@
     <update id="changeStudentInfo">
         update student set name = #{name}, sex = #{sex}, grade = #{grade}, class_num = #{class_num}, major = #{major} where uuid = #{uuid}
     </update>
+    <select id="selectNoticeIDByStudentID" resultType="org.example.entity.NS">
+        select * from ns where studentuuid = #{studentuuid}
+    </select>
+    <select id="selectNoticeByNoticeID" resultType="org.example.entity.Notice">
+        select * from notice where uuid = #{uuid}
+    </select>
+    <select id="selectNoticeByStuID" resultType="org.example.entity.Notice">
+        select * from notice where uuid = any(select noticeuuid from ns where studentuuid = #{studentuuid})
+    </select>
 </mapper>

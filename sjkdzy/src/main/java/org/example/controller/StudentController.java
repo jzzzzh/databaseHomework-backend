@@ -268,4 +268,21 @@ public class StudentController {
         return Result.error();
     }
     }
+    @RequestMapping("/selectNoticeByStuID")
+    public Result selectNoticeByStuID(@RequestParam(value = "stuuuid")int stuuuid)
+    {
+        val notices = studentService.selectNoticeByStuID(stuuuid);
+        if(notices != null)
+        {
+            Map<String, Object> data = new HashMap<>();
+            data.put("notices", notices);
+            Result r = Result.ok();
+            r.setData(data);
+            return r;
+        }
+        else
+        {
+            return Result.error();
+        }
+    }
 }

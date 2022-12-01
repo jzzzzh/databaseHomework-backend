@@ -1,9 +1,6 @@
 package org.example.service;
 
-import org.example.entity.Course;
-import org.example.entity.Score;
-import org.example.entity.Tc;
-import org.example.entity.Teacher;
+import org.example.entity.*;
 import org.example.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -107,5 +104,8 @@ public class TeacherService {
         teacherRepository.changeInfo(name,uuid,sex,major,age);
         return Boolean.TRUE;
     }
-
+    public List<Notice> selectNoticeByTeaID(int teacheruuid)
+    {
+        return teacherRepository.selectNoticeByTeaID(teacheruuid);
+    }
 }
