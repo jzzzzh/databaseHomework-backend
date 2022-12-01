@@ -62,6 +62,7 @@ public class TeacherController {
             String mytoken = token.token("teacher",Integer.toString(id), password);
             data.put("token", mytoken);
             stringRedisTemplate.opsForValue().set(mytoken, id+"", 1, TimeUnit.DAYS);
+            data.put("id", id);
             Result r = Result.ok();
             r.setData(data);
             return r;
