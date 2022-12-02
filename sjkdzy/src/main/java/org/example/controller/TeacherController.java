@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.val;
 import org.example.Object.Result;
 import org.example.Tools.token;
@@ -293,6 +294,25 @@ public class TeacherController {
             return r;
         }
         else
+        {
+            return Result.error();
+        }
+    }
+    @RequestMapping("/addNoticeByIDList")
+    public Result addNoticeByIDList(@RequestParam(value = "studentuuid")int studentuuid,@RequestParam(value = "IDList") List<Integer> idList,
+                                    @RequestParam(value = "teacheruuid")int teacheruuid)
+    {
+        try {
+            for(int i = 0; i < idList.size(); i++)
+            {
+                teacherService.insertNoticeToStudent(idList.get(i), studentuuid,teacheruuid);
+            }
+            Map<String, Object> data = new HashMap<>();
+            data.put("result", "添加成功");
+            Result r = Result.ok();
+            r.setData(data);
+            return r;
+        }catch (Exception err)
         {
             return Result.error();
         }

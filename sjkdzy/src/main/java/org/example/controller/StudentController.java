@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -282,6 +283,44 @@ public class StudentController {
             return r;
         }
         else
+        {
+            return Result.error();
+        }
+    }
+    @RequestMapping("/addCourseByIDList")
+    public Result addCourseByIDList(@RequestParam(value = "studentuuid")int studentuuid,@RequestParam(value = "IDList") List<Integer> idList)
+    {
+        try {
+            for(int i = 0; i < idList.size(); i++)
+            {
+                studentService.insertCourseByid(studentuuid, idList.get(i));
+            }
+            Map<String, Object> data = new HashMap<>();
+            data.put("result", "插入成功");
+            Result r = Result.ok();
+            r.setData(data);
+            return r;
+        }catch (Exception err)
+        {
+            return Result.error();
+        }
+
+    }
+
+    @RequestMapping("/deleteCourseByIDList")
+    public Result deleteCourseByIDList(@RequestParam(value = "studentuuid")int studentuuid,@RequestParam(value = "IDList") List<Integer> idList)
+    {
+        try {
+            for(int i = 0; i < idList.size(); i++)
+            {
+                studentService.deleteCourseByid(studentuuid, idList.get(i));
+            }
+            Map<String, Object> data = new HashMap<>();
+            data.put("result", "删除成功");
+            Result r = Result.ok();
+            r.setData(data);
+            return r;
+        }catch (Exception err)
         {
             return Result.error();
         }
