@@ -325,4 +325,19 @@ public class StudentController {
             return Result.error();
         }
     }
+    @RequestMapping("/deleteStudent")
+    public Result deleteStudent(@RequestParam(value = "uuid")int uuid)
+    {
+        try {
+            studentService.deleteStudent(uuid);
+            Map<String, Object> data = new HashMap<>();
+            data.put("result", "删除成功");
+            Result r = Result.ok();
+            r.setData(data);
+            return r;
+        }catch (Exception e)
+        {
+            return Result.error();
+        }
+    }
 }

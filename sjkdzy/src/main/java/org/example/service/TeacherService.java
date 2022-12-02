@@ -59,17 +59,17 @@ public class TeacherService {
         teacherRepository.addScore(studentuuid, courseuuid, score, Compulsory, examscore, dailyscore, checkscore, grade, courseName, credit, is_updated);
         return Boolean.TRUE;
     }
-    public Boolean addCourse(String name,int teacher_id,String major,int max_num,int Compulsory,int credit)
+    public int addCourse(String name,int teacher_id,String major,int max_num,int Compulsory,int credit)
     {
         int num = teacherRepository.countCourseNum() + 1;
-        teacherRepository.addCourse(num, name, teacher_id, major, max_num,Compulsory, credit);
-        return true;
+        teacherRepository.addCourse(num, name, teacher_id, major, max_num,Compulsory, credit, 0);
+        return num;
     }
-    public Boolean addNotice(String title, String detail, Date time, int teacheruuid, String teachername)
+    public int addNotice(String title, String detail, Date time, int teacheruuid, String teachername)
     {
         int uuid = teacherRepository.countNoticeNum() + 1;
-        teacherRepository.addNotice(uuid, title, detail, time, teacheruuid, teachername);
-        return true;
+        teacherRepository.addNotice(uuid, title, detail, time, teacheruuid, teachername,0);
+        return uuid;
     }
     public List<Score> selectScoreByCourseID(int courseuuid)
     {
@@ -107,5 +107,42 @@ public class TeacherService {
     public List<Notice> selectNoticeByTeaID(int teacheruuid)
     {
         return teacherRepository.selectNoticeByTeaID(teacheruuid);
+    }
+    public Boolean addTeacherToCourse(int teacheruuid, int courseuuid)
+    {
+        teacherRepository.addTeacherToCourse(teacheruuid, courseuuid);
+        return true;
+    }
+    public Boolean addTeacherListToCourse(List<Integer> teacheruuid, int courseuuid)
+    {
+        for(int i = 0; i < teacheruuid.size(); i++) {
+            teacherRepository.addTeacherToCourse(teacheruuid.get(i), courseuuid);
+        }
+        return true;
+    }
+    public List<Course> selectAllCourseByTeacherID(int teacheruuid)
+    {
+        return teacherRepository.selectAllCourseByTeacherID(teacheruuid);
+    }
+    public List<TS> selectTeacherScoreByTeacherID(int teacheruuid){
+        return teacherRepository.selectTeacherScoreByTeacherID(teacheruuid);
+    }
+    public List<TS> selectTeacherScoreByTeacherIDAndCourseID(int teacheruuid, int courseuuid){
+        return teacherRepository.selectTeacherScoreByTeacherIDAndCourseID(teacheruuid,courseuuid);
+    }
+    public Boolean deleteNoticeByNoticeID(int uuid)
+    {
+        teacherRepository.deleteNoticeByNoticeID(uuid);
+        return true;
+    }
+    public Boolean deleteCourseByCourseID(int uuid)
+    {
+        teacherRepository.deleteCourseByCourseID(uuid);
+        return true;
+    }
+    public Boolean deleteTeacher(int uuid)
+    {
+        teacherRepository.deleteTeacher(uuid);
+        return true;
     }
 }

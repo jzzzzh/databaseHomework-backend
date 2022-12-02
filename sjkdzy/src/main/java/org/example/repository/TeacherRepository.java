@@ -18,10 +18,10 @@ public interface TeacherRepository {
 
     int addScore(int studentuuid, int courseuuid, int score, int Compulsory,int examscore, int dailyscore,
                  int checkscore, int grade, String courseName, int credit, int is_updated);
-    int addCourse(int uuid,String name,int teacher_id,String major,int max_num, int Compulsory,int credit);
+    int addCourse(int uuid,String name,int teacher_id,String major,int max_num, int Compulsory,int credit, int isdeleted);
     int countCourseNum();
     int countNoticeNum();
-    int addNotice(int uuid, String title, String detail, Date time, int teacheruuid, String teachername);
+    int addNotice(int uuid, String title, String detail, Date time, int teacheruuid, String teachername, int isdeleted);
     List<Score> selectScoreByCourseID(int courseuuid);
     List<Tc> selectCourseByTeacherID(int teacheruuid);
     List<Course> selectCourseByMainTeacherID(int teacher_id);
@@ -30,4 +30,11 @@ public interface TeacherRepository {
     int updateScoreByid(int score, int examscore, int dailyscore, int checkscore, int studentuuid, int courseuuid, int is_updated);
     int changeInfo(String name,  int uuid, String sex, String major, int age);
     List<Notice> selectNoticeByTeaID(int teacheruuid);
+    int addTeacherToCourse(int teacheruuid, int courseuuid);
+    List<Course> selectAllCourseByTeacherID(int teacheruuid);
+    List<TS> selectTeacherScoreByTeacherID(int teacheruuid);
+    List<TS> selectTeacherScoreByTeacherIDAndCourseID(int teacheruuid, int courseuuid);
+    int deleteNoticeByNoticeID(int uuid);
+    int deleteCourseByCourseID(int uuid);
+    int deleteTeacher(int uuid);
 }

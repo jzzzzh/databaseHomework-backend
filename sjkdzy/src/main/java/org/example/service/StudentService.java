@@ -110,4 +110,9 @@ public class StudentService {
     {
         return studentRepository.selectNoticeByStuID(studentuuid);
     }
+    public Boolean deleteStudent(int uuid)
+    {
+        studentRepository.deleteStudent(uuid);
+        return true;
+    }
 }

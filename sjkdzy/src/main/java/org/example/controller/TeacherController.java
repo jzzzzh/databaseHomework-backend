@@ -128,10 +128,11 @@ public class TeacherController {
     public Result addCourse(@RequestParam(value = "name")String name,@RequestParam(value = "teacher_id")int teacher_id,@RequestParam(value = "major")String major,@RequestParam(value = "max_num")int max_num,
                             @RequestParam(value = "Compulsory")int Compulsory,@RequestParam(value = "credit")int credit)
     {
-        if(teacherService.addCourse(name, teacher_id, major, max_num,Compulsory,credit) == true)
+        val course = teacherService.addCourse(name, teacher_id, major, max_num, Compulsory, credit);
+        if(course != -1)
         {
             Map<String, Object> data = new HashMap<>();
-            data.put("result", "insert successful");
+            data.put("result", course);
             Result r = Result.ok();
             r.setData(data);
             return r;
@@ -146,10 +147,11 @@ public class TeacherController {
                             @RequestParam(value = "teacheruuid")int teacheruuid, @RequestParam(value = "teachername")String teachername)
     {
         Date time = new Date();
-        if(teacherService.addNotice(title, detail, time, teacheruuid, teachername) == true)
+        val i = teacherService.addNotice(title, detail, time, teacheruuid, teachername);
+        if(i != -1)
         {
             Map<String, Object> data = new HashMap<>();
-            data.put("result", "insert successful");
+            data.put("result", i);
             Result r = Result.ok();
             r.setData(data);
             return r;
@@ -313,6 +315,133 @@ public class TeacherController {
             r.setData(data);
             return r;
         }catch (Exception err)
+        {
+            return Result.error();
+        }
+    }
+    @RequestMapping("/addTeacherToCourse")
+    public Result addTeacherToCourse(@RequestParam(value = "teacheruuid") int teacheruuid, @RequestParam(value = "courseuuid")int courseuuid)
+    {
+        try{
+            teacherService.addTeacherToCourse(teacheruuid, courseuuid);
+            Map<String, Object> data = new HashMap<>();
+            data.put("result", "添加成功");
+            Result r = Result.ok();
+            r.setData(data);
+            return r;
+        }catch (Exception e)
+        {
+            return Result.error();
+        }
+    }
+    @RequestMapping("/addTeacherListToCourse")
+    public Result addTeacherListToCourse(@RequestParam(value = "teacherlistuuid") List<Integer> teacheruuid, @RequestParam(value = "courseuuid")int courseuuid)
+    {
+        try {
+            teacherService.addTeacherListToCourse(teacheruuid,courseuuid);
+            Map<String, Object> data = new HashMap<>();
+            data.put("result", "添加成功");
+            Result r = Result.ok();
+            r.setData(data);
+            return r;
+        }catch (Exception e)
+        {
+            return Result.error();
+        }
+    }
+    @RequestMapping("/selectAllCourseByTeacherID")
+    public Result selectAllCourseByTeacherID(@RequestParam(value = "teacheruuid")int teacheruuid)
+    {
+        val courses = teacherService.selectAllCourseByTeacherID(teacheruuid);
+        if(courses != null)
+        {
+            Map<String, Object> data = new HashMap<>();
+            data.put("listCourse", courses);
+            Result r = Result.ok();
+            r.setData(data);
+            return r;
+        }
+        else
+        {
+            return Result.error();
+        }
+    }
+    @RequestMapping("/selectTeacherScoreByTeacherID")
+    public Result selectTeacherScoreByTeacherID(@RequestParam(value = "teacheruuid")int teacheruuid)
+    {
+        val tsList = teacherService.selectTeacherScoreByTeacherID(teacheruuid);
+        if(tsList != null)
+        {
+            Map<String, Object> data = new HashMap<>();
+            data.put("tsList", tsList);
+            Result r = Result.ok();
+            r.setData(data);
+            return r;
+        }
+        else
+        {
+            return Result.error();
+        }
+    }
+    @RequestMapping("/selectTeacherScoreByTeacherIDAndCourseID")
+    public Result selectTeacherScoreByTeacherIDAndCourseID(@RequestParam(value = "teacheruuid")int teacheruuid, @RequestParam(value = "courseuuid")int courseuuid)
+    {
+        val tsList = teacherService.selectTeacherScoreByTeacherIDAndCourseID(teacheruuid, courseuuid);
+        if(tsList != null)
+        {
+            Map<String, Object> data = new HashMap<>();
+            data.put("tsList", tsList);
+            Result r = Result.ok();
+            r.setData(data);
+            return r;
+        }
+        else
+        {
+            return Result.error();
+        }
+    }
+    @RequestMapping("/deleteNoticeByNoticeID")
+    public Result deleteNoticeByNoticeID(@RequestParam(value = "uuid")int uuid)
+    {
+
+        try {
+            teacherService.deleteNoticeByNoticeID(uuid);
+            Map<String, Object> data = new HashMap<>();
+            data.put("result", "删除成功");
+            Result r = Result.ok();
+            r.setData(data);
+            return r;
+        }catch (Exception e)
+        {
+            return Result.error();
+        }
+    }
+    @RequestMapping("/deleteCourseByCourseID")
+    public Result deleteCourseByCourseID(@RequestParam(value = "uuid")int uuid)
+    {
+        try {
+            teacherService.deleteCourseByCourseID(uuid);
+            Map<String, Object> data = new HashMap<>();
+            data.put("result", "删除成功");
+            Result r = Result.ok();
+            r.setData(data);
+            return r;
+        }catch (Exception e)
+        {
+            return Result.error();
+        }
+    }
+    @RequestMapping("/deleteTeacher")
+    public Result deleteTeacher(@RequestParam(value = "uuid")int uuid)
+    {
+        try {
+            teacherService.deleteTeacher(uuid);
+            Map<String, Object> data = new HashMap<>();
+            data.put("result", "删除成功");
+            Result r = Result.ok();
+            r.setData(data);
+            return r;
+        }catch (Exception e)
         {
             return Result.error();
         }

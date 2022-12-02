@@ -11,7 +11,7 @@
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 13/11/2022 21:27:35
+ Date: 02/12/2022 10:12:20
 */
 
 SET NAMES utf8mb4;
@@ -29,13 +29,14 @@ CREATE TABLE `course`  (
   `max_num` int(0) NULL DEFAULT NULL,
   `Compulsory` int(0) NULL DEFAULT NULL,
   `credit` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `isdeleted` int(0) NULL DEFAULT NULL,
   PRIMARY KEY (`uuid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES (1, '数据库', 1, '计算机', 100, NULL, NULL);
+INSERT INTO `course` VALUES (1, '数据库', 1, '计算机', 100, 0, '3', 0);
 
 -- ----------------------------
 -- Table structure for notice
@@ -48,8 +49,17 @@ CREATE TABLE `notice`  (
   `time` datetime(0) NULL DEFAULT NULL,
   `teacheruuid` int(0) NULL DEFAULT NULL,
   `teachername` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `isdeleted` int(0) NULL DEFAULT NULL,
   PRIMARY KEY (`uuid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of notice
+-- ----------------------------
+INSERT INTO `notice` VALUES (1, '放假', '放假', '2022-12-01 07:19:12', 1, 'jzh', 0);
+INSERT INTO `notice` VALUES (2, '不放假', '不放假', '2022-12-01 07:27:06', 1, 'jzh', 0);
+INSERT INTO `notice` VALUES (3, '不放假', '不放假', '2022-12-01 07:30:59', 1, 'jzh', 0);
+INSERT INTO `notice` VALUES (4, 'dd', 'dd', '2022-12-01 20:09:00', 1, 'jzh', 0);
 
 -- ----------------------------
 -- Table structure for ns
@@ -61,6 +71,15 @@ CREATE TABLE `ns`  (
   `teacheruuid` int(0) NOT NULL,
   PRIMARY KEY (`noticeuuid`, `studentuuid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of ns
+-- ----------------------------
+INSERT INTO `ns` VALUES (1, 1, 1);
+INSERT INTO `ns` VALUES (1, 2, 1);
+INSERT INTO `ns` VALUES (2, 1, 1);
+INSERT INTO `ns` VALUES (3, 1, 1);
+INSERT INTO `ns` VALUES (4, 1, 1);
 
 -- ----------------------------
 -- Table structure for sc
@@ -93,14 +112,17 @@ CREATE TABLE `student`  (
   `class_num` int(0) NULL DEFAULT NULL,
   `major` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `isdeleted` int(0) NULL DEFAULT NULL,
   PRIMARY KEY (`uuid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES (1, 'jzh', '男', 3, 6, '计算机科学与技术', '1234');
-INSERT INTO `student` VALUES (2, 'xrj', '男', 3, 6, '计算机', '1234567');
+INSERT INTO `student` VALUES (1, 'jzh', '男', 2, 6, '计算机科学与技术', '1234', 0);
+INSERT INTO `student` VALUES (2, 'xrj', '男', 3, 6, '计算机', '1234', 0);
+INSERT INTO `student` VALUES (3, 'lwd', '男', 3, 3, '计算机', '111', 0);
+INSERT INTO `student` VALUES (4, '蒋卓航', '男', 3, 2, '计算机', '123', 0);
 
 -- ----------------------------
 -- Table structure for tc
@@ -128,16 +150,17 @@ CREATE TABLE `teacher`  (
   `sex` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `major` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `age` int(0) NULL DEFAULT NULL,
+  `isdeleted` int(0) NULL DEFAULT NULL,
   PRIMARY KEY (`uuid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
-INSERT INTO `teacher` VALUES (1, 'jzh', '123456', '男', '计算机科学与技术', 20);
-INSERT INTO `teacher` VALUES (2, 'zx', '1234567', '男', '计算机', 21);
-INSERT INTO `teacher` VALUES (3, 'lwd', '1234567', '男', '计算机', 20);
-INSERT INTO `teacher` VALUES (4, 'xrj', '1234567', '男', '计算机', 20);
+INSERT INTO `teacher` VALUES (1, 'jzh', '123456', '男', '计算机科学与技术', 21, 0);
+INSERT INTO `teacher` VALUES (2, 'zx', '1234567', '男', '计算机', 21, 0);
+INSERT INTO `teacher` VALUES (3, 'lwd', '1234567', '男', '计算机', 20, 0);
+INSERT INTO `teacher` VALUES (4, 'xrj', '1234567', '男', '计算机', 20, 0);
 
 -- ----------------------------
 -- Table structure for teacherscore

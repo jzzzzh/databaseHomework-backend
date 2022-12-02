@@ -5,10 +5,10 @@
         select * from student
     </select>
     <select id="findByID" resultType="org.example.entity.Student">
-        select * from student where uuid = #{id}
+        select * from student where uuid = #{id} and isdeleted = 0
     </select>
     <insert id="register">
-        insert into student(uuid, name, sex, grade, class_num, major, password) values(#{uuid}, #{name}, #{sex}, #{grade}, #{class_num}, #{major}, #{password})
+        insert into student(uuid, name, sex, grade, class_num, major, password,isdeleted) values(#{uuid}, #{name}, #{sex}, #{grade}, #{class_num}, #{major}, #{password},0)
     </insert>
     <select id="countNum" resultType="int">
         select count(*) from student
@@ -20,16 +20,16 @@
         select * from sc where studentuuid = #{studentuuid}
     </select>
     <select id="selectCourseBycourseid"  resultType="org.example.entity.Course">
-        select * from course where uuid = #{uuid}
+        select * from course where uuid = #{uuid} and isdeleted = 0
     </select>
     <select id="selectCourseBymajor"  resultType="org.example.entity.Course">
-        select * from course where major like "%"#{major}"%"
+        select * from course where major like "%"#{major}"%" and isdeleted = 0
     </select>
     <select id="selectCourseByname"  resultType="org.example.entity.Course">
-        select * from course where name like "%"#{name}"%"
+        select * from course where name like "%"#{name}"%" and isdeleted = 0
     </select>
     <select id="selectCourseByteacherID"  resultType="org.example.entity.Course">
-        select * from course where teacher_id = #{teacher_id}
+        select * from course where teacher_id = #{teacher_id} and isdeleted = 0
     </select>
     <select id="selectTeacherByName" resultType="org.example.entity.Teacher">
         select  * from teacher where name like "%"#{name}"%"
@@ -52,9 +52,12 @@
         select * from ns where studentuuid = #{studentuuid}
     </select>
     <select id="selectNoticeByNoticeID" resultType="org.example.entity.Notice">
-        select * from notice where uuid = #{uuid}
+        select * from notice where uuid = #{uuid} and isdeleted = 0
     </select>
     <select id="selectNoticeByStuID" resultType="org.example.entity.Notice">
-        select * from notice where uuid = any(select noticeuuid from ns where studentuuid = #{studentuuid})
+        select * from notice where uuid = any(select noticeuuid from ns where studentuuid = #{studentuuid}) and isdeleted = 0
     </select>
+    <update id="deleteStudent">
+        update student set isdeleted = 1 where uuid = #{uuid}
+    </update>
 </mapper>
