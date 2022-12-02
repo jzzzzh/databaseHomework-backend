@@ -17,4 +17,5 @@ public class Notice {
     public Date time;
     public int teacheruuid;
     public String teachername;
+    public int isdeleted;
 }

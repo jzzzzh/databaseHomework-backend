@@ -17,4 +17,5 @@ public class Student {
     public int class_num;
     public String major;
     public String password;
+    public int isdeleted;
 }

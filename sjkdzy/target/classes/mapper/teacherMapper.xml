@@ -5,26 +5,26 @@
         select * from teacher
     </select>
     <select id="findByID" resultType="org.example.entity.Teacher">
-        select * from teacher where uuid = #{id};
+        select * from teacher where uuid = #{id} and isdeleted = 0
     </select>
     <select id="countNum" resultType="int">
         select count(*) from teacher
     </select>
     <insert id="register">
-        insert into teacher(uuid, name, password, sex, major, age) values(#{uuid}, #{name},#{password}, #{sex}, #{major}, #{age})
+        insert into teacher(uuid, name, password, sex, major, age, isdeleted) values(#{uuid}, #{name},#{password}, #{sex}, #{major}, #{age}, 0)
     </insert>
     <update id="changePassword">
-        update student set password = #{password} where uuid = #{uuid}
+        update teacher set password = #{password} where uuid = #{uuid}
     </update>
     <insert id="addScore">
         insert into sc(studentuuid, courseuuid, score, Compulsory, examscore, dailyscore,checkscore, grade, courseName,credit, is_updated) values (#{studentuuid}, #{courseuuid}, #{score},
                                  #{Compulsory}, #{examscore}, #{dailyscore}, #{checkscore}, #{grade}, #{courseName},  #{credit}, #{is_updated})
     </insert>
     <insert id="addCourse">
-        insert into course(uuid,name,teacher_id,major,max_num,Compulsory, credit) values (#{uuid},#{name},#{teacher_id},#{major},#{max_num}, #{Compulsory}, #{credit})
+        insert into course(uuid,name,teacher_id,major,max_num,Compulsory, credit, isdeleted) values (#{uuid},#{name},#{teacher_id},#{major},#{max_num}, #{Compulsory}, #{credit}, #{isdeleted})
     </insert>
     <insert id="addNotice">
-        insert into notice(uuid, title, detail, time, teacheruuid, teachername) values (#{uuid}, #{title}, #{detail}, #{time}, #{teacheruuid}, #{teachername})
+        insert into notice(uuid, title, detail, time, teacheruuid, teachername, isdeleted) values (#{uuid}, #{title}, #{detail}, #{time}, #{teacheruuid}, #{teachername}, #{isdeleted})
     </insert>
     <select id="selectScoreByCourseID" resultType="org.example.entity.Score">
         select * from sc where courseuuid = #{courseuuid}
@@ -33,10 +33,10 @@
         select * from tc where teacheruuid = #{teacheruuid}
     </select>
     <select id="selectCourseByMainTeacherID" resultType="org.example.entity.Course">
-        select * from course where teacher_id = #{teacher_id}
+        select * from course where teacher_id = #{teacher_id} and isdeleted = 0
     </select>
     <select id="selectCourseByCourseID" resultType="org.example.entity.Course">
-        select * from course where uuid = #{uuid}
+        select * from course where uuid = #{uuid} and isdeleted = 0
     </select>
     <insert id="insertNoticeToStudent">
         insert into ns(noticeuuid, studentuuid, teacheruuid) values(#{noticeuuid}, #{studentuuid}, #{teacheruuid})
@@ -48,12 +48,33 @@
         select count(*) from notice
     </select>
     <update id="updateScoreByid">
-        update sc set score = #{score}, examscore = #{examscore}, dailyscore = #{dailyscore},checkscore = #{checkscore}, is_updated = #{is_updated}where studentuuid = #{studentuuid} and courseuuid = #{courseuuid}
+        update sc set score = #{score}, examscore = #{examscore}, dailyscore = #{dailyscore},checkscore = #{checkscore}, is_updated = #{is_updated} where studentuuid = #{studentuuid} and courseuuid = #{courseuuid}
     </update>
     <update id="changeInfo">
         update teacher set name = #{name}, sex = #{sex}, major = #{major}, age = #{age} where uuid = #{uuid}
     </update>
     <select id="selectNoticeByTeaID" resultType="org.example.entity.Notice">
-        select * from notice where teacheruuid = #{teacheruuid}
+        select * from notice where teacheruuid = #{teacheruuid} and isdeleted = 0
     </select>
+    <insert id="addTeacherToCourse">
+        insert into tc(teacheruuid, courseuuid) values (#{teacheruuid}, #{courseuuid})
+    </insert>
+    <select id="selectAllCourseByTeacherID" resultType="org.example.entity.Course">
+        select * from course where uuid = (select courseuuid from tc where teacheruuid = #{teacheruuid}) and isdeleted = 0
+    </select>
+    <select id="selectTeacherScoreByTeacherID" resultType="org.example.entity.TS">
+        select * from teacherscore where teacheruuid = #{teacheruuid}
+    </select>
+    <select id="selectTeacherScoreByTeacherIDAndCourseID" resultType="org.example.entity.TS">
+        select * from teacherscore where teacheruuid = #{teacheruuid} and courseuuid = #{courseuuid}
+    </select>
+    <update id="deleteNoticeByNoticeID">
+        update notice set isdeleted = 1 where uuid = #{uuid}
+    </update>
+    <update id="deleteCourseByCourseID">
+        update course set isdeleted = 1 where uuid = #{uuid}
+    </update>
+    <update id="deleteTeacher">
+        update teacher set isdeleted = 1 where uuid = #{uuid}
+    </update>
 </mapper>

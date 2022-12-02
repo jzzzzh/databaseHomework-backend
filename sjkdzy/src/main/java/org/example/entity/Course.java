@@ -16,4 +16,5 @@ public class Course {
     public int max_num;
     public int Compulsory;
     public int credit;
+    public int isdeleted;
 }

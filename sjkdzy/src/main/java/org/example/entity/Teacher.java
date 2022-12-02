@@ -15,4 +15,5 @@ public class Teacher {
     public String sex;
     public String major;
     public int age;
+    public int isdeleted;
 }
