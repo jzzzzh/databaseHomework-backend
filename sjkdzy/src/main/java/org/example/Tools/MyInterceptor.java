@@ -27,7 +27,7 @@ public class MyInterceptor implements HandlerInterceptor {
         if(mytoken != null && RedisUtils.get(mytoken) != null)
         {
             val id = token.verify(mytoken).getClaim("id").asString();
-            RedisUtils.resetTime(mytoken, 1800);
+            RedisUtils.resetTime(mytoken, 18000);
             //System.out.println(id);
             if(RedisUtils.get(mytoken).equals(id))
             {

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class Course {
     public int uuid;
     public String name;
-    public int teacher_uuid;
+    public int teacher_id;
     public String major;
     public int max_num;
     public int Compulsory;

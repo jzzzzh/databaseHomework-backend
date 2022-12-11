@@ -17,7 +17,7 @@
         update student set password = #{password} where uuid = #{uuid}
     </update>
     <select id="selectScoreByid" resultType="org.example.entity.Score">
-        select * from sc where studentuuid = #{studentuuid}
+        select * from sc,course where sc.studentuuid = #{studentuuid} and sc.courseuuid = course.uuid and course.isdeleted = 0
     </select>
     <select id="selectCourseBycourseid"  resultType="org.example.entity.Course">
         select * from course where uuid = #{uuid} and isdeleted = 0
