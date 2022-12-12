@@ -89,7 +89,7 @@ public class StudentController {
             return Result.error();
         }
     }
-    @RequestMapping("selectScoreByid")
+    @RequestMapping("/selectScoreByid")
     public Result selectScoreByid(@RequestParam(value = "studentuuid") int studentuuid)
     {
         val scores = studentService.selectScoreByid(studentuuid);

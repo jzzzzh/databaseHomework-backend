@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class token {
-    private static final int EXPIRE_DATE = 1800;
+    private static final int EXPIRE_DATE = 18000;
     private static final String TOKEN_SECRET = "jzh";
 
     public static String token(String user, String id, String password) {
