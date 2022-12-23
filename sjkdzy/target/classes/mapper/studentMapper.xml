@@ -60,4 +60,7 @@
     <update id="deleteStudent">
         update student set isdeleted = 1 where uuid = #{uuid}
     </update>
+    <select id="countCourseStuNum" resultType="int">
+        select count(*) from sc where courseuuid = #{courseuuid}
+    </select>
 </mapper>

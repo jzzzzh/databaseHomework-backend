@@ -92,9 +92,20 @@ public class StudentService {
         int Compulsory = course.getCompulsory();
         int grade = student.getGrade();
         String courseName = course.getName();
+        int maxNum = course.getMax_num();
+        int stunum = studentRepository.countCourseStuNum(courseuuid);
         int credit = course.getCredit();
-        studentRepository.insertCourseByid(studentuuid, courseuuid, 0, Compulsory, 0, 0, 0, grade, courseName, credit, 0);
-        return true;
+        System.out.println(stunum);
+        System.out.println(maxNum);
+        if(stunum < maxNum) {
+            studentRepository.insertCourseByid(studentuuid, courseuuid, 0, Compulsory, 0, 0, 0, grade, courseName, credit, 0);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
     }
     public Boolean deleteCourseByid(int studentuuid, int courseuuid)
     {

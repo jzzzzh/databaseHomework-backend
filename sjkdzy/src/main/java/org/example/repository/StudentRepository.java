@@ -27,4 +27,5 @@ public interface StudentRepository {
     Notice selectNoticeByNoticeID(int uuid);
     List<Notice> selectNoticeByStuID(int studentuuid);
     int deleteStudent(int uuid);
+    int countCourseStuNum(int courseuuid);
 }
